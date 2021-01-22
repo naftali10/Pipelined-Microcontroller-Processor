@@ -2,3 +2,4 @@
 `include "multiplexer.sv"
 `include "SHFL.sv"
 `include "ALU.sv"
+`include "RF.sv"
