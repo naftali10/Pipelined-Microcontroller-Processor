@@ -11,7 +11,7 @@ module mux #(
   );
   assign out = data[sel];
   always @(sel, size) begin
-    assert(sel<size) else $fatal ("Mux's selector's value is too high.");
-    assert(0<=sel) else $fatal ("Mux's selector's value is negative.");
+    assert(sel<size) else $fatal (0,"Mux's selector's value is too high.");
+    assert(0<=sel) else $fatal (0,"Mux's selector's value is negative.");
   end
 endmodule
