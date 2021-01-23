@@ -3,3 +3,4 @@
 `include "SHFL.sv"
 `include "ALU.sv"
 `include "RF.sv"
+`include "controller.sv"
