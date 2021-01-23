@@ -6,38 +6,36 @@
 //		 significant '1' on B (starting at index 1 on the right).
 //		 Encodings (0) and (1) simply yield A.
 
-module ALU #(
-  parameter data_bus_size = 8				// Size of data inputs
-  )(
-  input logic [data_bus_size-1:0] A,B,			// Data buses
-  input logic [$clog2(`ALU_OP_AMT)-1:0] op,		// Encoded operation
-  output logic [data_bus_size-1:0] result		// Result of operation
+module ALU import definitions::*;(
+  input t_data A,B,		// Data buses
+  input t_opcode op,		// Encoded operation
+  output t_data result	// Result of operation
   );
-  logic [data_bus_size-1:0] results [`ALU_OP_AMT-1:0];
+  t_data results [`ALU_OP_AMT-1:0];
   genvar i,j;
   //----- simple operations -----
-  assign results [0] = A;
-  assign results [1] = A;
-  assign results [2] = A+B;
-  assign results [3] = A-B;
-  assign results [4] = ~(A&B);
-  assign results [5] = ~(A|B);
-  assign results [6] = A^B;
+  assign results [LD] = A;
+  assign results [OUT] = A;
+  assign results [ADD] = A+B;
+  assign results [SUB] = A-B;
+  assign results [NAND] = ~(A&B);
+  assign results [NOR] = ~(A|B);
+  assign results [XOR] = A^B;
   
   //----- shift left operation -----
-  SHFL #(.bus_size(data_bus_size)) SHFL_inst(.A(A),
+  SHFL #(.bus_size(`DATA_WIDTH)) SHFL_inst(.A(A),
                                              .B(B),
-                                             .result(results [7]));
+                                             .result(results [SHFL]));
   
   //----- output muxes -----
-  generate for (i=0; i<data_bus_size; i++) begin : for_every_bit
+  generate for (i=0; i<`DATA_WIDTH; i++) begin : for_every_bit
     logic [`ALU_OP_AMT-1:0] mux_inputs;
     for (j=0; j<`ALU_OP_AMT; j++) begin: for_every_operation
 	  	assign mux_inputs[j] = results[j][i]; // All results, single bit
     end: for_every_operation
     mux #(.size(`ALU_OP_AMT)) output_mux (.data(mux_inputs),
                                           .sel(op),
-                                          .out(result[i]));
+  	                                      .out(result[i]));
   end: for_every_bit
   endgenerate
 endmodule
