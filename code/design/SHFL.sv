@@ -3,12 +3,10 @@
 //		 significant '1' on input bus B 
 //		 (starting at index 1 on the right).
 
-module SHFL #(
-  parameter bus_size = 8		// size of data buses
-  )(
-  input logic [bus_size-1:0] A,		// bus to be shifted
-  input logic [bus_size-1:0] B,		// shift amount bus
-  output logic [bus_size-1:0] result	// data output
+module SHFL import definitions::*;(
+  input t_data A,		// bus to be shifted
+  input t_data B,		// shift amount bus
+  output t_data result	// data output
   );
   
   int shamt=0;
