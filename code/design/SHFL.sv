@@ -3,7 +3,7 @@
 //		 significant '1' on input bus B 
 //		 (starting at index 1 on the right).
 
-module SHFL import definitions::*;(
+module SHFL (
   input t_data A,		// bus to be shifted
   input t_data B,		// shift amount bus
   output t_data result	// data output
