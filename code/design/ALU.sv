@@ -6,10 +6,10 @@
 //		 significant '1' on B (starting at index 1 on the right).
 //		 Encodings (0) and (1) simply yield A.
 
-module ALU import definitions::*;(
-  input t_data A,B,		// Data buses
+module ALU (
+  input t_data A,B,			// Data buses
   input t_opcode op,		// Encoded operation
-  output t_data result	// Result of operation
+  output t_data result		// Result of operation
   );
   t_data results [`ALU_OP_AMT-1:0];
   genvar i,j;
@@ -23,9 +23,9 @@ module ALU import definitions::*;(
   assign results [XOR] = A^B;
   
   //----- shift left operation -----
-  SHFL #(.bus_size(`DATA_WIDTH)) SHFL_inst(.A(A),
-                                             .B(B),
-                                             .result(results [SHFL]));
+  SHFL SHFL_inst(.A(A),
+                 .B(B),
+                 .result(results [SHFL]));
   
   //----- output muxes -----
   generate for (i=0; i<`DATA_WIDTH; i++) begin : for_every_bit
