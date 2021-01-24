@@ -1,7 +1,9 @@
 `define ALU_OP_AMT 8		// amount of operations ALU can perform
-`define ALU_SRC_TYPES 2	// amount of types of inputs into ALU (e.g. IMM,GPR)
+`define ALU_SRC_TYPES 2		// amount of types of inputs into ALU (e.g. IMM,GPR)
 `define DATA_WIDTH 8		// size of data bus
-`define REG_AMT 4		// amount of regiters in RF
+`define REG_AMT 4			// amount of regiters in RF
+`define READ_PORTS 2		// amount of read ports in RF
+`define WRITE_PORTS 1		// amount of write ports in RF
 
 package definitions;
 typedef enum logic [$clog2(`ALU_OP_AMT)-1:0] {LD='b000,
@@ -19,4 +21,8 @@ typedef enum logic [$clog2(`REG_AMT+1)-1:0] {R0='b000,
                                            	 R2='b010,
                                            	 R3='b011,
                                            	 IMM='b100}t_reg_name;
+typedef logic [$clog2(`REG_AMT)-1:0] t_RFadrs;
 endpackage
+// -------------------------------- IMPORTANT ----------------------------------
+// The following line requires desfines.sv to appear first in the whole design!
+import definitions::*;	
