@@ -24,5 +24,5 @@ typedef enum logic [$clog2(`REG_AMT+1)-1:0] {R0='b000,
 typedef logic [$clog2(`REG_AMT)-1:0] t_RFadrs;
 endpackage
 // -------------------------------- IMPORTANT ----------------------------------
-// The following line requires desfines.sv to appear first in the whole design!
+// The following line requires defines.sv to appear first in the whole design!
 import definitions::*;	
