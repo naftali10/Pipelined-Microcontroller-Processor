@@ -2,7 +2,7 @@
 // Duty: Preparing signals for exititng the macine.
 //		 Shifting signal's clock.
 
-interface out_reg (input logic clock);
+interface reg_out (input logic clock);
   logic stalled, stalledx3;
   logic dataoutvx2, dataoutvx3;
   t_data dataoutx2, dataoutx3;
