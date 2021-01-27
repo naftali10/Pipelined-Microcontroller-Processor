@@ -1,6 +1,6 @@
 module stimulus_for_out_reg;
   
-  out_reg out_reg_DUT (.clock(clock));
+  reg_out reg_out_DUT (.clock(clock));
   
   logic clock;
   logic stalled, stalledx3;
