@@ -1,4 +1,4 @@
-module stimulus_for_out_reg;
+module stimulus_for_reg_out;
   
   reg_out reg_out_DUT (.clock(clock));
   
@@ -7,13 +7,13 @@ module stimulus_for_out_reg;
   logic dataoutvx2, dataoutvx3;
   t_data dataoutx2, dataoutx3;
   
-  assign out_reg_DUT.stalled = stalled;
-  assign out_reg_DUT.dataoutvx2 = dataoutvx2;
-  assign out_reg_DUT.dataoutx2 = dataoutx2;
+  assign reg_out_DUT.stalled = stalled;
+  assign reg_out_DUT.dataoutvx2 = dataoutvx2;
+  assign reg_out_DUT.dataoutx2 = dataoutx2;
     
-  assign stalledx3 = out_reg_DUT.stalledx3;
-  assign dataoutvx3 = out_reg_DUT.dataoutvx3;
-  assign dataoutx3 = out_reg_DUT.dataoutx3;
+  assign stalledx3 = reg_out_DUT.stalledx3;
+  assign dataoutvx3 = reg_out_DUT.dataoutvx3;
+  assign dataoutx3 = reg_out_DUT.dataoutx3;
   
   always #1 clock = ~clock;
   
