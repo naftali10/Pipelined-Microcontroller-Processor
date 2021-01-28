@@ -1,7 +1,7 @@
 // Interface name: Write Back
 // Duty: connecting the RF with the WB stage
 
-interface WB_ifc ();
+interface ifc_WB ();
   logic wr_enx2;
   t_RFadrs dstx2;
   t_data dataoutx2;
