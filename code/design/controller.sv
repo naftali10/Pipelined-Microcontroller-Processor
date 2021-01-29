@@ -2,22 +2,22 @@
 // Duty: Managing data flow in the whole system
 //		 by generating control signals.
 
-module controller import definitions::*;(
+module controller (
   input logic clock,
   input logic reset,
   input t_opcode opcode,
   input logic instv,			// validity of instruction.
   input t_reg_name src1,		// register name or immediate,
   input t_reg_name src2,		// meaning it can be {R0-4 or IMM}.
-  output logic internal_reset,		// zeros signal down the pipeline.
-  output t_ALUsrc_ctrl ALUsrc1,		// tells muxes on ALU's inputs to take register
-  output t_ALUsrc_ctrl ALUsrc2,		// or immediate. can be {takeGPR or takeIMM}.
+  output logic internal_reset,	// zeros signal down the pipeline.
+  output t_ALUsrc_ctrl ALUsrc1,	// tells muxes on ALU's inputs to take register
+  output t_ALUsrc_ctrl ALUsrc2,	// or immediate. can be {takeGPR or takeIMM}.
   output t_opcode ALUop,		// identical to opcode.
   output logic wr_en,			// enables RF writing.
   output logic dataoutv,		// for outside world.
   output logic stalled			// for outside world.
 );
-  enum {OP, STALL_EX, STALL_WB, STALL_RF} state, next_state;
+  enum {OP, STALL_EX, STALL_WB} state, next_state;
   always_ff @(posedge clock)
     state = reset?OP:next_state;
   
@@ -105,13 +105,6 @@ module controller import definitions::*;(
           stalled = 1;
         end
         STALL_WB: begin
-          next_state = STALL_RF;
-          internal_reset = 0;
-          wr_en = 0;
-          dataoutv = 0;
-          stalled = 1;
-        end
-        STALL_RF: begin
           next_state = OP;
           internal_reset = 0;
           wr_en = 0;
