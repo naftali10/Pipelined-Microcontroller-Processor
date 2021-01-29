@@ -9,9 +9,9 @@ module controller (
   input logic instv,			// validity of instruction.
   input t_reg_name src1,		// register name or immediate,
   input t_reg_name src2,		// meaning it can be {R0-4 or IMM}.
-  output logic internal_reset,	// zeros signal down the pipeline.
-  output t_ALUsrc_ctrl ALUsrc1,	// tells muxes on ALU's inputs to take register
-  output t_ALUsrc_ctrl ALUsrc2,	// or immediate. can be {takeGPR or takeIMM}.
+  output logic internal_reset,		// zeros signal down the pipeline.
+  output t_ALUsrc_ctrl ALUsrc1,		// tells muxes on ALU's inputs to take register
+  output t_ALUsrc_ctrl ALUsrc2,		// or immediate. can be {takeGPR or takeIMM}.
   output t_opcode ALUop,		// identical to opcode.
   output logic wr_en,			// enables RF writing.
   output logic dataoutv,		// for outside world.
