@@ -1,5 +1,5 @@
 // Interface name: Outputs Register
-// Duty: Preparing signals for exititng the macine.
+// Duty: Preparing signals for exiting the macine.
 //		 Shifting signal's clock.
 
 interface reg_out (input logic clock);
@@ -17,6 +17,6 @@ interface reg_out (input logic clock);
                   output dataoutvx2,
                   output dataoutx2);
   modport receiver (input stalledx3,
-                   input dataoutvx3,
-                   input dataoutx3);  
+                    input dataoutvx3,
+                    input dataoutx3);  
 endinterface
