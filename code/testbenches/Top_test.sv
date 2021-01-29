@@ -1,5 +1,3 @@
-//Testbench
-
 module stimulus;
 
   ifc_inputs global_inputs();
@@ -57,6 +55,72 @@ module stimulus;
     $display ("Is result valid? %b",
               global_outputs.dataoutvx3);
     $display ("-------------------------------------------");
-    
+    //-----------ADD R1 = R2 + R3-----------
+    global_inputs.opcode = ADD;
+    global_inputs.src1 = R3;
+    global_inputs.src2 = R2;
+    global_inputs.dst = R1;
+    // -----------wait 3 cycles-----------
+    #6
+    //-----------OUT R1-----------
+    global_inputs.opcode = OUT;
+    global_inputs.src1 = R1;
+    // -----------wait 3 cycles-----------
+    #6
+    /************Check value************/
+    $display ("Expected R1 value is 48. In reality: %d",
+             global_outputs.dataoutx3);
+    $display ("Is result valid? %b",
+              global_outputs.dataoutvx3);
+    $display ("-------------------------------------------");
+    //-----------SUB R0 = R2 - R3-----------
+    global_inputs.opcode = SUB;
+    global_inputs.src1 = R2;
+    global_inputs.src2 = R3;
+    global_inputs.dst = R0;
+    // -----------wait only 2.5 cycles-----------
+    #5
+    //-----------OUT R0-----------
+    global_inputs.opcode = OUT;
+    global_inputs.src1 = R0;
+    // -----------wait 3 cycles-----------
+    #6
+    /************Check value************/
+    $display ("Expected R0 value is INVALID 38. In reality: %d",
+             global_outputs.dataoutx3);
+    $display ("Is result valid? %b",
+              global_outputs.dataoutvx3);
+    $display ("-------------------------------------------");
+    // -----------wait 0.5 cycles-----------
+    #1
+    /************Check value************/
+    $display ("Expected R0 value is 38. In reality: %d",
+             global_outputs.dataoutx3);
+    $display ("Is result valid? %b",
+              global_outputs.dataoutvx3);
+    $display ("-------------------------------------------");
+    //-----------LD R0 = 23-----------
+    global_inputs.opcode = LD;
+    global_inputs.src1 = IMM;
+    global_inputs.imm = 23;
+    global_inputs.dst = R0;
+    // -----------wait 1.5 cycles-----------
+    #3
+    //-----------Reset pipeline-----------
+    global_inputs.reset = 1;
+    // -----------wait 1 cycle-----------
+    #2
+    //-----------OUT R0-----------
+    global_inputs.opcode = OUT;
+    global_inputs.src1 = R0;
+    #1
+    global_inputs.reset = 0;
+    // -----------wait 3 cycles-----------
+    #6
+    /************Check value************/
+    $display ("Expected R0 value is 38. In reality: %d",
+             global_outputs.dataoutx3);
+    $display ("Is result valid? %b",
+              global_outputs.dataoutvx3);
   end
 endmodule
