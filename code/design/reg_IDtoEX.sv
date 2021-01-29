@@ -4,6 +4,7 @@
 
 interface reg_IDtoEX (input logic clock);
   logic wr_enx0, wr_enx1;
+  logic dataoutvx0, dataoutvx1;
   t_ALUsrc_ctrl ALUsrc1x0, ALUsrc2x0, ALUsrc1x1, ALUsrc2x1;
   t_opcode ALUopx0, ALUopx1;
   t_data immx0, immx1, dat1x0, dat1x1, dat2x0, dat2x1;
@@ -18,6 +19,7 @@ interface reg_IDtoEX (input logic clock);
     dat1x1 <= dat1x0;
     dat2x1 <= dat2x0;
     dstx1 <= dstx0;
+    dataoutvx1 <= dataoutvx0;
   end
   
   modport driver (output wr_enx0,
@@ -27,7 +29,8 @@ interface reg_IDtoEX (input logic clock);
                   output immx0,
                   output dat1x0,
                   output dat2x0,
-                  output dstx0);
+                  output dstx0,
+                  output dataoutvx0);
   modport receiver (input wr_enx1,
                     input ALUsrc1x1,
                     input ALUsrc2x1,
@@ -35,5 +38,6 @@ interface reg_IDtoEX (input logic clock);
                     input immx1,
                     input dat1x1,
                     input dat2x1,
-                    input dstx1);
+                    input dstx1,
+                    input dataoutvx1);
 endinterface
